@@ -17,16 +17,18 @@ jobs:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
+    
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: make install
-    - run: make lint
-    - run: make test   
-    - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v2.7.4
+    - name: npm install, build
+      # Install and build project
+      run: |
+        make install
+        make build
+      # Add environment variables
       env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: make test-coverage
-        debug: true
+        CI: true
+    - name: Run linter
+      run: make lint
+    - name: Run tests
+      run: make test
