@@ -1,0 +1,38 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.1.0",
+  "description": "frontend-project-lvl3",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LexaZ999/frontend-project-lvl3.git"
+  },
+  "author": "Aleksey Zubkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LexaZ999/frontend-project-lvl3/issues"
+  },
+  "homepage": "https://github.com/LexaZ999/frontend-project-lvl3#readme",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@webpack-cli/generators": "^2.4.1",
+    "babel-loader": "^8.2.3",
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "html-webpack-plugin": "^5.4.0",
+    "jest": "^27.4.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
