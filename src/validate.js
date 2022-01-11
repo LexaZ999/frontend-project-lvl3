@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 import render from './view';
 
-const validate = (state) => {
+const validate = (state, i18nextInstance) => {
   const schema = yup.object().shape({
     url: yup.string().url(),
   });
 
-  const watchedState = render(state);
+  const watchedState = render(state, i18nextInstance);
 
   const handlerSubmit = (e) => {
     e.preventDefault();
@@ -15,21 +15,19 @@ const validate = (state) => {
 
     watchedState.rssForm.url = value;
 
-    schema.isValid(state.rssForm).then((isValid) => {
-      if (isValid) {
-        watchedState.rssForm.state = 'valid';
+    schema
+      .validate(state.rssForm)
+      .then(() => {
         if (!state.rssForm.feeds.includes(value)) {
           watchedState.rssForm.feeds.push(value);
-          watchedState.rssForm.errors = '';
+          watchedState.rssForm.state = 'added';
         } else {
-          watchedState.rssForm.state = 'invalid';
-          watchedState.rssForm.errors = 'RSS уже существует';
+          watchedState.rssForm.state = 'exists';
         }
-      } else {
+      })
+      .catch(() => {
         watchedState.rssForm.state = 'invalid';
-        watchedState.rssForm.errors = 'Ссылка должна быть валидным URL';
-      }
-    });
+      });
   };
 
   return handlerSubmit;

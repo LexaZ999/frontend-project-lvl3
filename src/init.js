@@ -1,4 +1,6 @@
+import i18next from 'i18next';
 import validate from './validate';
+import ru from '../locales/ru.json';
 
 const runApp = () => {
   const state = {
@@ -9,10 +11,17 @@ const runApp = () => {
       errors: '',
     },
   };
-
   const rssForm = document.querySelector('.rss-form');
-
-  rssForm.addEventListener('submit', validate(state));
+  const i18nextInstance = i18next.createInstance();
+  i18nextInstance.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  }).then(() => {
+    rssForm.addEventListener('submit', validate(state, i18nextInstance));
+  });
 };
 
 export default runApp;

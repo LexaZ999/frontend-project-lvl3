@@ -1,0 +1,10 @@
+{
+  "translation": {
+    "feedback": {
+      "added": "RSS успешно загружен",
+      "exists": "RSS уже существует",
+      "invalid": "Ссылка должна быть валидным URL",
+      "network error": "Ошибка сети"
+    }
+  }
+}
