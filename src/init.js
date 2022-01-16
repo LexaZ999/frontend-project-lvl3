@@ -1,16 +1,20 @@
 import i18next from 'i18next';
 import validate from './validate';
 import ru from '../locales/ru.json';
+import request from './request';
 
 const runApp = () => {
   const state = {
     rssForm: {
-      state: 'valid',
+      state: '',
       url: '',
       feeds: [],
       errors: '',
     },
+    feeds: [],
+    posts: [],
   };
+
   const rssForm = document.querySelector('.rss-form');
   const i18nextInstance = i18next.createInstance();
   i18nextInstance.init({
@@ -21,6 +25,12 @@ const runApp = () => {
     },
   }).then(() => {
     rssForm.addEventListener('submit', validate(state, i18nextInstance));
+  }).then(() => {
+    rssForm.addEventListener('submit', () => {
+      if (state.rssForm.state === 'valid') {
+        request(state.rssForm.url, state, i18nextInstance);
+      }
+    });
   });
 };
 

@@ -18,12 +18,7 @@ const validate = (state, i18nextInstance) => {
     schema
       .validate(state.rssForm)
       .then(() => {
-        if (!state.rssForm.feeds.includes(value)) {
-          watchedState.rssForm.feeds.push(value);
-          watchedState.rssForm.state = 'added';
-        } else {
-          watchedState.rssForm.state = 'exists';
-        }
+        watchedState.rssForm.state = 'valid';
       })
       .catch(() => {
         watchedState.rssForm.state = 'invalid';
