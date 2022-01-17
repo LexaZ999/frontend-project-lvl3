@@ -1,17 +1,22 @@
 import uniqueId from 'lodash/uniqueId.js';
 
-const parserRss = (data, url) => {
+const parserRss = (data, feedIn) => {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(data.contents, 'application/xml');
+  const nodeListPosts = xmlDoc.querySelectorAll('item');
+
   const feedTitle = xmlDoc.querySelector('channel > title').childNodes[0].nodeValue;
   const feedDescription = xmlDoc.querySelector('channel > description').childNodes[0].nodeValue;
-  const nodeListPosts = xmlDoc.querySelectorAll('item');
-  const feed = {
+
+  const feedObj = {
     id: uniqueId(),
-    url,
+    url: feedIn,
     title: feedTitle,
     description: feedDescription,
   };
+
+  const feed = (typeof feedIn === 'string') ? feedObj : feedIn;
+
   const posts = [];
   nodeListPosts.forEach((item) => {
     const title = item.querySelector('title').textContent;

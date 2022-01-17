@@ -15,7 +15,7 @@ const request = (url, state, i18nextInstance) => {
   }
 
   fetch(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(url)}`)
-    .catch((e) => console.log(e))
+    .catch()
     .then((response) => {
       if (response === undefined) {
         watchedState.rssForm.state = 'network error';
@@ -26,20 +26,15 @@ const request = (url, state, i18nextInstance) => {
     .then((data) => {
       try {
         const result = parserRss(data, url, state);
-        watchedState.feeds.push(result.feed);
-        watchedState.posts.push(result.posts);
+        watchedState.feeds.unshift(result.feed);
+        watchedState.posts.unshift(result.posts);
         watchedState.rssForm.state = 'added';
         watchedState.rssForm.feeds.push(state.rssForm.url);
-        console.log(state);
       } catch {
         watchedState.rssForm.state = 'invalid RSS';
-        console.log(state);
       }
     })
-    .catch((e) => {
-      console.log(e);
-      console.log(state);
-    });
+    .catch();
 };
 
 export default request;

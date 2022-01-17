@@ -2,6 +2,7 @@ import i18next from 'i18next';
 import validate from './validate';
 import ru from '../locales/ru.json';
 import request from './request';
+import updateRss from './updateRss';
 
 const runApp = () => {
   const state = {
@@ -32,6 +33,7 @@ const runApp = () => {
       }
     });
   });
+  updateRss(state, i18nextInstance);
 };
 
 export default runApp;
