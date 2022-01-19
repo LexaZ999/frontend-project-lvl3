@@ -10,15 +10,17 @@ const request = (url, state, i18nextInstance) => {
 
   if (state.rssForm.feeds.includes(state.rssForm.url)) {
     watchedState.rssForm.state = 'exists';
-    console.log(state);
     return;
   }
 
+  watchedState.stateBtnAdd = 'disabled';
   fetch(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(url)}`)
-    .catch()
+    .catch(() => {
+      watchedState.rssForm.state = 'network error';
+    })
     .then((response) => {
-      if (response === undefined) {
-        watchedState.rssForm.state = 'network error';
+      if (state.rssForm.state === 'network error') {
+        throw new Error('network error');
       }
       if (response.ok) return response.json();
       throw new Error('Network response was not ok.');
@@ -33,8 +35,12 @@ const request = (url, state, i18nextInstance) => {
       } catch {
         watchedState.rssForm.state = 'invalid RSS';
       }
+      watchedState.stateBtnAdd = 'enabled';
     })
-    .catch();
+    .catch((e) => {
+      console.log(e);
+      watchedState.stateBtnAdd = 'enabled';
+    });
 };
 
 export default request;

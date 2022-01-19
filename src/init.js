@@ -21,6 +21,7 @@ const runApp = () => {
       id: '',
     },
     viewedPosts: [],
+    stateBtnAdd: 'enabled',
   };
 
   const rssForm = document.querySelector('.rss-form');

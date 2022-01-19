@@ -9,6 +9,7 @@ const render = (state, i18nextInstance) => {
   const feedback = document.querySelector('.feedback');
   const divFeeds = document.querySelector('.feeds');
   const divPosts = document.querySelector('.posts');
+  const submitButton = document.querySelector('.rss-form [type="submit"]');
 
   const watchedState = onChange(state, (path, value) => {
     if (path === 'rssForm.state') {
@@ -57,6 +58,14 @@ const render = (state, i18nextInstance) => {
       divPosts.innerHTML = posts.outerHTML;
       addEventViewButtons(state);
       addStylesForViewedPosts(state);
+    }
+
+    if (path === 'stateBtnAdd') {
+      if (value === 'disabled') {
+        submitButton.disabled = true;
+      } else {
+        submitButton.disabled = false;
+      }
     }
   });
   return watchedState;
