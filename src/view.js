@@ -1,6 +1,8 @@
 import onChange from 'on-change';
 import createFeeds from './createFeeds.js';
 import createPosts from './createPosts.js';
+import addEventViewButtons from './addEventViewButtons.js';
+import addStylesForViewedPosts from './addStylesForViewedPosts.js';
 
 const render = (state, i18nextInstance) => {
   const urlInput = document.querySelector('#url-input');
@@ -53,6 +55,8 @@ const render = (state, i18nextInstance) => {
     if (path === 'posts') {
       const posts = createPosts(state, i18nextInstance);
       divPosts.innerHTML = posts.outerHTML;
+      addEventViewButtons(state);
+      addStylesForViewedPosts(state);
     }
   });
   return watchedState;

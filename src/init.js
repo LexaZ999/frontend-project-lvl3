@@ -14,6 +14,13 @@ const runApp = () => {
     },
     feeds: [],
     posts: [],
+    modal: {
+      title: '',
+      description: '',
+      link: '',
+      id: '',
+    },
+    viewedPosts: [],
   };
 
   const rssForm = document.querySelector('.rss-form');

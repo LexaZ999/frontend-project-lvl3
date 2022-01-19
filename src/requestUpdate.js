@@ -19,7 +19,6 @@ const requestUpdate = (feed, state, i18nextInstance) => {
         .filter((elem) => !postLinks.includes(elem.link));
       if (newPosts.length !== 0) {
         watchedState.posts.unshift(newPosts);
-        console.log(state);
       }
     })
     .catch();
