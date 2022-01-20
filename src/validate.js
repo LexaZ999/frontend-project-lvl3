@@ -15,6 +15,11 @@ const validate = (state, i18nextInstance) => {
 
     watchedState.rssForm.url = value;
 
+    if (value === '') {
+      watchedState.rssForm.state = 'empty';
+      return;
+    }
+
     schema
       .validate(state.rssForm)
       .then(() => {
