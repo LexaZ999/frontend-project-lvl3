@@ -2,9 +2,9 @@
   "name": "@hexlet/code",
   "version": "0.1.0",
   "description": "frontend-project-lvl3",
-  "main": "./src/index.js",
+  "main": "./src/runApp.js",
   "scripts": {
-    "test": "jest --colors",
+    "test": "npx -n '--experimental-vm-modules --no-warnings' jest --colors",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
