@@ -1,7 +1,7 @@
 import runTimeout from './runTimeout.js';
 
-const updateRss = (state, i18nextInstance) => {
-  setTimeout(runTimeout, 5000, state, i18nextInstance);
+const updateRss = (watchedState) => {
+  setTimeout(runTimeout, 5000, watchedState);
 };
 
 export default updateRss;

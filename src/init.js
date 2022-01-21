@@ -1,10 +1,21 @@
 import i18next from 'i18next';
-import validate from './validate';
+import onChange from 'on-change';
+import validateUrl from './validateUrl';
 import ru from '../locales/ru.json';
 import request from './request';
 import updateRss from './updateRss';
+import render from './render';
 
 const runApp = () => {
+  const i18nextInstance = i18next.createInstance();
+  i18nextInstance.init({
+    lng: 'ru',
+    debug: true,
+    resources: {
+      ru,
+    },
+  });
+
   const state = {
     rssForm: {
       state: '',
@@ -25,23 +36,19 @@ const runApp = () => {
   };
 
   const rssForm = document.querySelector('.rss-form');
-  const i18nextInstance = i18next.createInstance();
-  i18nextInstance.init({
-    lng: 'ru',
-    debug: true,
-    resources: {
-      ru,
-    },
-  }).then(() => {
-    rssForm.addEventListener('submit', validate(state, i18nextInstance));
-  }).then(() => {
-    rssForm.addEventListener('submit', () => {
-      if (state.rssForm.state === 'valid') {
-        request(state.rssForm.url, state, i18nextInstance);
-      }
-    });
+
+  const watchedState = onChange(state, render(state, i18nextInstance));
+
+  rssForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    validateUrl(watchedState, e)
+      .then(() => {
+        if (watchedState.rssForm.state === 'valid') {
+          request(watchedState);
+        }
+      });
   });
-  updateRss(state, i18nextInstance);
+  updateRss(watchedState);
 };
 
 export default runApp;

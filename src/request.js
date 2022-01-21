@@ -1,17 +1,11 @@
 import parserRss from './parserRss.js';
-import render from './view.js';
 
 // http://lorem-rss.herokuapp.com/feed
 // https://ru.hexlet.io/lessons.rss
 // http://feeds.bbci.co.uk/news/world/rss.xml
 
-const request = (url, state, i18nextInstance) => {
-  const watchedState = render(state, i18nextInstance);
-
-  if (state.rssForm.feeds.includes(state.rssForm.url)) {
-    watchedState.rssForm.state = 'exists';
-    return;
-  }
+const request = (watchedState) => {
+  const { url } = watchedState.rssForm;
 
   watchedState.stateBtnAdd = 'disabled';
   fetch(`https://hexlet-allorigins.herokuapp.com/get?disableCache=true&url=${encodeURIComponent(url)}`)
@@ -19,7 +13,7 @@ const request = (url, state, i18nextInstance) => {
       watchedState.rssForm.state = 'network error';
     })
     .then((response) => {
-      if (state.rssForm.state === 'network error') {
+      if (watchedState.rssForm.state === 'network error') {
         throw new Error('network error');
       }
       if (response.ok) return response.json();
@@ -27,11 +21,11 @@ const request = (url, state, i18nextInstance) => {
     })
     .then((data) => {
       try {
-        const result = parserRss(data, url, state);
+        const result = parserRss(data, url, watchedState);
         watchedState.feeds.unshift(result.feed);
         watchedState.posts.unshift(result.posts);
         watchedState.rssForm.state = 'added';
-        watchedState.rssForm.feeds.push(state.rssForm.url);
+        watchedState.rssForm.feeds.push(watchedState.rssForm.url);
       } catch {
         watchedState.rssForm.state = 'invalid RSS';
       }
