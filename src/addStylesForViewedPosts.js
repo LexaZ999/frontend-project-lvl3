@@ -1,10 +1,8 @@
-import addClass from './addClass';
-
 const addStylesForViewedPosts = (watchedState) => {
   watchedState.viewedPosts.forEach((postId) => {
     const titleLink = document.querySelector(`[data-id="${postId}"]`);
     titleLink.classList.remove('fw-bold');
-    addClass(titleLink, 'fw-normal', 'link-secondary');
+    titleLink.classList.add('fw-normal', 'link-secondary');
   });
 };
 

@@ -1,5 +1,3 @@
-import addClass from './addClass.js';
-
 const createPosts = (state, i18nextInstance) => {
   const postsCard = document.createElement('div');
   const postsCardBody = document.createElement('div');
@@ -10,10 +8,10 @@ const createPosts = (state, i18nextInstance) => {
   postsCardTitle.textContent = i18nextInstance.t('posts');
   postsCardBody.append(postsCardTitle);
 
-  addClass(postsCard, 'card', 'border-0');
-  addClass(postsCardBody, 'card-body');
-  addClass(postsCardTitle, 'card-title', 'h4');
-  addClass(postsList, 'list-group', 'border-0', 'rounded-0');
+  postsCard.classList.add('card', 'border-0');
+  postsCardBody.classList.add('card-body');
+  postsCardTitle.classList.add('card-title', 'h4');
+  postsList.classList.add('list-group', 'border-0', 'rounded-0');
 
   const postsFlat = state.posts.flat();
 
@@ -24,9 +22,9 @@ const createPosts = (state, i18nextInstance) => {
     const postLink = document.createElement('a');
     const button = document.createElement('button');
 
-    addClass(postItem, 'list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
-    addClass(postLink, 'fw-bold');
-    addClass(button, 'btn', 'btn-outline-primary', 'btn-sm');
+    postItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
+    postLink.classList.add('fw-bold');
+    button.classList.add('btn', 'btn-outline-primary', 'btn-sm');
 
     postLink.setAttribute('href', link);
     postLink.setAttribute('data-id', id);

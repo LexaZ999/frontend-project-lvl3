@@ -1,5 +1,3 @@
-import addClass from './addClass.js';
-
 const createFeeds = (state, i18nextInstance) => {
   const feedsCard = document.createElement('div');
   const feedsCardBody = document.createElement('div');
@@ -10,10 +8,10 @@ const createFeeds = (state, i18nextInstance) => {
   feedsCardTitle.textContent = i18nextInstance.t('feeds');
   feedsCardBody.append(feedsCardTitle);
 
-  addClass(feedsCard, 'card', 'border-0');
-  addClass(feedsCardBody, 'card-body');
-  addClass(feedsCardTitle, 'card-title', 'h4');
-  addClass(feedsList, 'list-group', 'border-0', 'rounded-0');
+  feedsCard.classList.add('card', 'border-0');
+  feedsCardBody.classList.add('card-body');
+  feedsCardTitle.classList.add('card-title', 'h4');
+  feedsList.classList.add('list-group', 'border-0', 'rounded-0');
 
   state.feeds.forEach((feed) => {
     const { title } = feed;
@@ -22,9 +20,9 @@ const createFeeds = (state, i18nextInstance) => {
     const feedTitle = document.createElement('h3');
     const feedDescription = document.createElement('p');
 
-    addClass(feedItem, 'list-group-item', 'border-0', 'border-end-0');
-    addClass(feedTitle, 'h6', 'm-0');
-    addClass(feedDescription, 'm-0', 'small', 'text-black-50');
+    feedItem.classList.add('list-group-item', 'border-0', 'border-end-0');
+    feedTitle.classList.add('h6', 'm-0');
+    feedDescription.classList.add('m-0', 'small', 'text-black-50');
 
     feedTitle.textContent = title;
     feedDescription.textContent = description;

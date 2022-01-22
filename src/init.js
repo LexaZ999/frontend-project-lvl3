@@ -26,7 +26,6 @@ const runApp = () => {
       state: '',
       url: '',
       feeds: [],
-      errors: '',
     },
     feeds: [],
     posts: [],
