@@ -36,11 +36,13 @@ const render = (state, i18nextInstance) => (path, value) => {
     addEventViewButtons(state);
     addStylesForViewedPosts(state);
   }
-  if (path === 'stateBtnAdd') {
-    if (value === 'disabled') {
+  if (path === 'isFormBlocked') {
+    if (value) {
       submitButton.disabled = true;
+      urlInput.setAttribute('readonly', 'readonly');
     } else {
       submitButton.disabled = false;
+      urlInput.removeAttribute('readonly');
     }
   }
 };

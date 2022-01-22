@@ -23,7 +23,7 @@ const errorHandler = (watchedState) => (error) => {
     default:
       throw new Error(`Unknown error: '${error.message}'!`);
   }
-  watchedState.stateBtnAdd = 'enabled';
+  watchedState.isFormBlocked = false;
 };
 
 export default errorHandler;

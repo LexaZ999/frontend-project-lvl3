@@ -35,7 +35,7 @@ const runApp = () => {
       id: '',
     },
     viewedPosts: [],
-    stateBtnAdd: 'enabled',
+    isFormBlocked: false,
   };
 
   const rssForm = document.querySelector('.rss-form');
@@ -44,13 +44,13 @@ const runApp = () => {
 
   rssForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    watchedState.stateBtnAdd = 'disabled';
+    watchedState.isFormBlocked = true;
     validateUrl(watchedState, e)
       .then(() => request(watchedState.rssForm.url))
       .then((response) => parserRss(response, watchedState.rssForm.url))
       .then((data) => {
         addDataToState(watchedState, data);
-        watchedState.stateBtnAdd = 'enabled';
+        watchedState.isFormBlocked = false;
       })
       .catch(errorHandler(watchedState));
   });
