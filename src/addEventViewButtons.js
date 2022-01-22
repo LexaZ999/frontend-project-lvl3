@@ -1,10 +1,10 @@
 import handlerBtnView from './handlerBtnView';
 
-const addEventViewButtons = (state) => {
+const addEventViewButtons = (watchedState) => {
   const buttonsView = document.querySelectorAll('[data-bs-toggle="modal"]');
 
   buttonsView.forEach((btn) => {
-    btn.addEventListener('click', handlerBtnView(state));
+    btn.addEventListener('click', handlerBtnView(watchedState));
   });
 };
 

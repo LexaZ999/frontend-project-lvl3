@@ -8,6 +8,8 @@ import render from './render';
 import parserRss from './parserRss';
 import addDataToState from './addDataToState';
 import errorHandler from './errorHandler';
+import addEventViewButtons from './addEventViewButtons';
+import addStylesForViewedPosts from './addStylesForViewedPosts';
 
 const runApp = () => {
   const i18nextInstance = i18next.createInstance();
@@ -51,6 +53,8 @@ const runApp = () => {
       .then((data) => {
         addDataToState(watchedState, data);
         watchedState.isFormBlocked = false;
+        addEventViewButtons(watchedState);
+        addStylesForViewedPosts(watchedState);
       })
       .catch(errorHandler(watchedState));
   });

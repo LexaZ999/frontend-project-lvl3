@@ -1,7 +1,6 @@
+import addStylesForViewedPosts from './addStylesForViewedPosts.js';
 import createFeeds from './createFeeds.js';
 import createPosts from './createPosts.js';
-import addEventViewButtons from './addEventViewButtons.js';
-import addStylesForViewedPosts from './addStylesForViewedPosts.js';
 
 const render = (state, i18nextInstance) => (path, value) => {
   const urlInput = document.querySelector('#url-input');
@@ -9,6 +8,9 @@ const render = (state, i18nextInstance) => (path, value) => {
   const divFeeds = document.querySelector('.feeds');
   const divPosts = document.querySelector('.posts');
   const submitButton = document.querySelector('.rss-form [type="submit"]');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalBody = document.querySelector('.modal-body');
+  const modalLink = document.querySelector('.full-article');
 
   if (path === 'rssForm.state') {
     feedback.textContent = i18nextInstance.t(`feedback.${value}`);
@@ -33,8 +35,6 @@ const render = (state, i18nextInstance) => (path, value) => {
   if (path === 'posts') {
     const posts = createPosts(state, i18nextInstance);
     divPosts.innerHTML = posts.outerHTML;
-    addEventViewButtons(state);
-    addStylesForViewedPosts(state);
   }
   if (path === 'isFormBlocked') {
     if (value) {
@@ -44,6 +44,16 @@ const render = (state, i18nextInstance) => (path, value) => {
       submitButton.disabled = false;
       urlInput.removeAttribute('readonly');
     }
+  }
+
+  if (path === 'modal') {
+    modalTitle.textContent = state.modal.title;
+    modalBody.textContent = state.modal.description;
+    modalLink.setAttribute('href', state.modal.link);
+  }
+
+  if (path === 'viewedPosts') {
+    addStylesForViewedPosts(state);
   }
 };
 
