@@ -5,6 +5,9 @@ import ru from '../locales/ru.json';
 import request from './request';
 import updateRss from './updateRss';
 import render from './render';
+import parserRss from './parserRss';
+import addDataToState from './addDataToState';
+import errorHandler from './errorHandler';
 
 const runApp = () => {
   const i18nextInstance = i18next.createInstance();
@@ -41,12 +44,15 @@ const runApp = () => {
 
   rssForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    watchedState.stateBtnAdd = 'disabled';
     validateUrl(watchedState, e)
-      .then(() => {
-        if (watchedState.rssForm.state === 'valid') {
-          request(watchedState);
-        }
-      });
+      .then(() => request(watchedState.rssForm.url))
+      .then((response) => parserRss(response, watchedState.rssForm.url))
+      .then((data) => {
+        addDataToState(watchedState, data);
+        watchedState.stateBtnAdd = 'enabled';
+      })
+      .catch(errorHandler(watchedState));
   });
   updateRss(watchedState);
 };

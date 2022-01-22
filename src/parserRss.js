@@ -3,6 +3,10 @@ import uniqueId from 'lodash/uniqueId.js';
 const parserRss = (data, feedIn) => {
   const parser = new DOMParser();
   const xmlDoc = parser.parseFromString(data.contents, 'application/xml');
+
+  const seachError = xmlDoc.querySelector('parsererror');
+  if (seachError) throw new Error('invalid RSS');
+
   const nodeListPosts = xmlDoc.querySelectorAll('item');
 
   const feedTitle = xmlDoc.querySelector('channel > title').childNodes[0].nodeValue;

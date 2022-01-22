@@ -5,3 +5,9 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/12e559952dc0ea0f156e/maintainability)](https://codeclimate.com/github/LexaZ999/frontend-project-lvl3/maintainability)
 
 https://frontend-project-lvl3-delta-sable.vercel.app/
+
+Links for the test:
+  http://lorem-rss.herokuapp.com/feed?unit=second&interval=4
+  https://ru.hexlet.io/lessons.rss
+  http://feeds.bbci.co.uk/news/world/rss.xml
+
